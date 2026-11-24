@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AERO-SPLIT // Telemetry & Elevation Analyzer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fit-file-parser@1.21.0/dist/fit-file-parser.min.js"></script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+  <header class="hud-header">
+    <div class="brand">AERO-SPLIT <span class="dim">//</span> Telemetry & Elevation Analyzer</div>
+    <button id="themeToggle" class="btn btn-secondary" type="button">Toggle theme</button>
+  </header>
+
+  <section class="upload-panel" id="dropzone">
+    <div class="upload-copy">
+      <div class="drop-title">Drop .FIT / .GPX file</div>
+      <div class="drop-sub">or choose a file to analyze</div>
+    </div>
+    <div class="upload-actions">
+      <button id="browseBtn" class="btn">Choose file</button>
+      <button id="sampleBtn" class="btn btn-secondary">Load sample</button>
+      <input type="file" id="fileInput" accept=".fit,.gpx" hidden>
+    </div>
+  </section>
+
+  <section class="summary" id="summary">
+    <div class="stat primary"><div class="stat-label">DISTANCE</div><div class="stat-val" id="s-dist">--</div><div class="stat-unit">km</div></div>
+    <div class="stat primary"><div class="stat-label">MOVING TIME</div><div class="stat-val" id="s-time">--</div><div class="stat-unit">mm:ss</div></div>
+    <div class="stat primary"><div class="stat-label">AVG PACE</div><div class="stat-val" id="s-pace">--</div><div class="stat-unit">/km</div></div>
+    <div class="stat primary"><div class="stat-label">ELEV GAIN</div><div class="stat-val" id="s-gain">--</div><div class="stat-unit">m</div></div>
+    <div class="stat secondary"><div class="stat-label">AVG GAP</div><div class="stat-val" id="s-gap">--</div><div class="stat-unit">/km</div></div>
+    <div class="stat secondary"><div class="stat-label">PACE VARIABILITY</div><div class="stat-val" id="s-cv">--</div><div class="stat-unit">%</div></div>
+  </section>
+  <div id="filterNote" class="filter-note">No data loaded.</div>
+
+  <section class="grid2">
+    <div class="card chart-card">
+      <div class="card-title">TELEMETRY</div>
+      <div class="chart-wrap"><canvas id="chart"></canvas></div>
+    </div>
+    <div class="card map-card">
+      <div class="card-title">ROUTE</div>
+      <div id="map"></div>
+    </div>
+  </section>
+
+  <section class="card insights-card">
+    <div class="card-title">TELEMETRY INSIGHTS</div>
+    <div id="insights" class="insights">Load data to generate insights.</div>
+  </section>
+
+  <section class="card table-card">
+    <div class="card-title">100M SPLIT MATRIX</div>
+    <div class="legend">
+      <span class="legend-item fast">Fast split</span>
+      <span class="legend-item slow">Slow split</span>
+    </div>
+    <div class="table-wrap">
+      <table id="splitTable">
+        <thead>
+          <tr>
+            <th>SPLIT</th><th>TIME (s)</th><th>PACE (/km)</th><th>GAP (/km)</th><th>ELEV Δ (m)</th><th>GRADE (%)</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
+C:\Users\frend\Documents\running-dashboard\index.html
